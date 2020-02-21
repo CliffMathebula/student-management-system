@@ -99,5 +99,31 @@ class Actions
 
         echo "Student does not exist." . PHP_EOL;
     }
+
+    /**
+     * Search students using keywords
+     *
+     * @param string $keyword
+     * @param array $data
+     * @return void
+     */
+    public static function search(string $keyword, array $data = [])
+    {
+        $data[] = ['ID', 'First Name', 'Last Name', 'Age', 'Curriculm'];
+
+        foreach (Student::all() as $student) {
+            if (
+                strpos(strtolower($student['id']), $keyword) !== false ||
+                strpos(strtolower($student['first_name']), $keyword) !== false ||
+                strpos(strtolower($student['last_name']), $keyword) !== false ||
+                strpos(strtolower($student['age']), $keyword) !== false ||
+                strpos(strtolower($student['curriculm']), $keyword) !== false
+            ) {
+                $data[] = array_values($student);
+            }
+        }
+
+        echo Table::make($data);
+    }
 }
 

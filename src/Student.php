@@ -2,8 +2,26 @@
 
 namespace ManagementSystem;
 
+use Exception;
+
 class Student
 {
+    /**
+     * Find student
+     *
+     * @param string $id
+     * @throws Exception
+     * @return object
+     */
+    public static function find(string $id) : object
+    {
+        if (self::exists($id)) {
+            return json_decode(file_get_contents(self::getPath($id, "{$id}.json")));
+        }
+
+        throw new Exception("Could not find student with the ID \"{$id}\"");
+    }
+
     /**
      * Check if student exists
      *

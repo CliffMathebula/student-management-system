@@ -18,5 +18,16 @@ class Validation
     {
         return is_string($value);
     }
+
+    /**
+     * Check if value is numeric
+     *
+     * @param string $value
+     * @return bool
+     */
+    public function isNumeric(string $value) : bool
+    {
+        return is_numeric($value);
+    }
 }
 

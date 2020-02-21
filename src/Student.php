@@ -73,6 +73,21 @@ class Student
     }
 
     /**
+     * Delete student using id
+     *
+     * @param string $id
+     * @return bool
+     */
+    public static function delete(string $id)
+    {
+        if (self::exists($id)) {
+            return unlink(self::getPath($id, "{$id}.json"));
+        }
+
+        return false;
+    }
+
+    /**
      * Get student(s) path
      *
      * @param string $id

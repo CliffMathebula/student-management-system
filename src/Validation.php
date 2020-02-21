@@ -29,5 +29,17 @@ class Validation
     {
         return is_numeric($value);
     }
+
+    /**
+     * Run validation rule
+     *
+     * @param string $rule
+     * @param string $value
+     * @return bool
+     */
+    public static function run(string $rule, string $value) : bool
+    {
+        return (new Validation)->{$rule}($value);
+    }
 }
 

@@ -15,7 +15,7 @@ class Actions
         $studentID = Question::ask($question ?? "Please enter a 7 digit value. This will be the student's ID.", Validation::IsNumeric);
 
         if (strlen($studentID) !== 7) return self::add('The ID must be 7 digit long!');
-        if (file_exists(__DIR__ . "/../students/{$studentID}.json")) return self::add('The ID is already in use. Please use a diffent one!');
+        if (Student::exists($studentID)) return self::add('The ID is already in use. Please use a diffent one!');
 
         $firstName = Question::ask("Please enter the student's first name.", Validation::IsString);
         $lastName  = Question::ask("Please enter the student's last name.", Validation::IsString);

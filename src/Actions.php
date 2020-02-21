@@ -32,5 +32,45 @@ class Actions
 
         echo ($student ? "Successfully added student {$studentID}" : 'Could not add student 😔') . PHP_EOL;
     }
+
+    /**
+     * Edit student
+     *
+     * @param string $studentID
+     * @return void
+     */
+    public static function edit(string $studentID, string $type)
+    {
+        if (!in_array($type, ['first_name', 'last_name', 'age', 'curriculm'])) {
+            echo "\"{$type}\" is not valid. These are the supported types: 'first_name', 'last_name', 'age', 'curriculm'";
+
+            return;
+        }
+
+        if (Student::exists($studentID)) {
+            $data = (array)Student::find($studentID);
+
+            if (in_array($type, ['first_name', 'last_name', 'curriculm'])) {
+                $cleanedType = str_replace('_', ' ', $type);
+                $data[$type] = Question::ask("Please enter the student's {$cleanedType}.", Validation::IsString);
+
+                Student::update($data);
+
+                echo "Successfully updated student: {$data['id']}" . PHP_EOL;
+
+                return;
+            }
+
+            $data[$type] = Question::ask("Please enter the student's age.", Validation::IsNumeric);
+
+            Student::update($data);
+
+            echo "Successfully updated student: {$data['id']}" . PHP_EOL;
+
+            return;
+        }
+
+        echo "Student \"{$studentID}\" does not exist." . PHP_EOL;
+    }
 }
 

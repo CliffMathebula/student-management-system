@@ -57,6 +57,22 @@ class Student
     }
 
     /**
+     * Update user
+     *
+     * @param array $data
+     * @return object|null
+     */
+    public static function update(array $data)
+    {
+        if (self::exists($data['id'])) {
+            self::delete($data['id']);
+            return self::create($data);
+        }
+
+        return null;
+    }
+
+    /**
      * Get student(s) path
      *
      * @param string $id

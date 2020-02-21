@@ -1,0 +1,8 @@
+{
+    "autoload": {
+        "psr-4": {
+            "ManagementSystem\\": "src/"
+        }
+    },
+    "minimum-stability": "stable"
+}

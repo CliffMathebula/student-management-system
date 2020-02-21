@@ -72,5 +72,32 @@ class Actions
 
         echo "Student \"{$studentID}\" does not exist." . PHP_EOL;
     }
+
+    /**
+     * Delete student
+     *
+     * @param string $id
+     * @return void
+     */
+    public static function delete(string $id)
+    {
+        if (Student::exists($id)) {
+            $answer = Question::ask('Are you sure you want to remove this student? Y/n', Validation::IsString);
+
+            if (in_array(strtolower($answer), ['y', 'yes'])) {
+                Student::delete($id);
+
+                echo "Student has been deleted!" . PHP_EOL;
+
+                return;
+            }
+
+            echo "Student has not been deleted." . PHP_EOL;
+
+            return;
+        }
+
+        echo "Student does not exist." . PHP_EOL;
+    }
 }
 

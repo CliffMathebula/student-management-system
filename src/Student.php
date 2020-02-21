@@ -88,6 +88,23 @@ class Student
     }
 
     /**
+     * Get all students
+     *
+     * @param array $all
+     * @return array $all
+     */
+    public static function all(array $all = [])
+    {
+        $students = glob(__DIR__ . "/../students/*/*.json");
+
+        foreach ($students as $student) {
+            $all[] = json_decode(file_get_contents($student), true);
+        }
+
+        return $all;
+    }
+
+    /**
      * Get student(s) path
      *
      * @param string $id

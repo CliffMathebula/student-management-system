@@ -34,6 +34,29 @@ class Student
     }
 
     /**
+     * Create new student
+     *
+     * @param array $data
+     * @return object|null
+     */
+    public static function create(array $data)
+    {
+        if (!self::exists($data['id'])) {
+            file_put_contents(self::getPath($data['id'], "{$data['id']}.json"), json_encode([
+                'id' => $data['id'],
+                'first_name' => $data['first_name'],
+                'last_name' => $data['last_name'],
+                'age' => $data['age'],
+                'curriculm' => $data['curriculm']
+            ]));
+
+            return self::find($data['id']);
+        }
+
+        return null;
+    }
+
+    /**
      * Get student(s) path
      *
      * @param string $id
